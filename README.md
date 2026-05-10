@@ -2,19 +2,19 @@
 
 This repository contains an optimized Image Captioning pipeline using EfficientNetB0 features and a vectorized LSTM decoder with Bahdanau Attention.
 
-## 🚀 Key Features
+## Key Features
 - **Spatial Features:** 7x7 grid extraction from EfficientNetB0 (total 49 regions).
 - **Vectorized Decoding:** Fully parallel training using teacher forcing (10x faster than RNN loops).
 - **Spatial Attention:** Dynamic attention maps visualizing where the model "looks".
 - **Mixed Precision:** Uses `float16` for faster GPU performance on Kaggle/Colab.
 - **Two-Phase Training:** Frozen embedding phase followed by global fine-tuning.
 
-## 📁 Files
+## Files
 - `image_captioning_v4.py`: Main script/notebook code.
-- `project_report.txt`: Detailed academic analysis of the project.
+- `project_report.pdf`: Detailed academic analysis of the project.
 - `dashboard_v4.png`: Training and evaluation summary dashboard.
 
-## 🛠️ Usage Instructions
+## Usage Instructions
 
 ### 1. Requirements
 Ensure you have the following installed:
@@ -45,7 +45,7 @@ caption = beam_caption(model_v4, feat, word_to_idx, idx_to_word, max_len)
 print(caption)
 ```
 
-## 📊 Performance
+## Performance
 - **Final Loss:** 2.62
 - **BLEU-1:** 41.75%
 - **Speed:** ~60ms/step on Tesla P100.
