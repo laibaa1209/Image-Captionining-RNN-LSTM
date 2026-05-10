@@ -9,43 +9,33 @@ This repository contains an optimized Image Captioning pipeline using EfficientN
 - **Mixed Precision:** Uses `float16` for faster GPU performance on Kaggle/Colab.
 - **Two-Phase Training:** Frozen embedding phase followed by global fine-tuning.
 
-## Files
-- `image_captioning_v4.py`: Main script/notebook code.
-- `project_report.pdf`: Detailed academic analysis of the project.
-- `dashboard_v4.png`: Training and evaluation summary dashboard.
+## Project Structure
+- **Code/**: Jupyter Notebooks for training and experimentation.
+- **Models/**: Pre-trained weights (.keras) and configuration files (.pkl).
+- **Visualizations/**: Training plots, attention maps, and model dashboard.
+- **Report/**: Formal technical project report.
+- **predict.py**: Standalone script for captioning new images.
 
 ## Usage Instructions
 
 ### 1. Requirements
 Ensure you have the following installed:
-- TensorFlow 2.10+
-- NumPy, Pandas, Matplotlib, PIL
-- NLTK (for BLEU evaluation)
-- tqdm
+`tensorflow`, `numpy`, `pillow`, `pickle`
 
-### 2. Dataset Setup (Kaggle)
-This code is optimized for Kaggle. Ensure the following datasets are added:
-- `adityajn105/flickr8k`
-- `danielwillgeorge/glove6b200dpretrained`
-
-### 3. Running the Script
-The code is divided into logical cells. Run them in order:
-1. **Cells 1-4:** Data loading and preprocessing.
-2. **Cell 5:** Feature extraction (takes ~10 mins on GPU).
-3. **Cells 6-8:** Model building and dataset creation.
-4. **Cells 9-11:** Training (Phase 1 & Phase 2).
-5. **Cell 12-14:** Saving the model and configurations.
-6. **Cells 15-20:** Evaluation, Inference, and Visualizations.
-
-### 4. Inference (Captioning a new image)
-To caption your own images, use the `beam_caption` function:
-```python
-feat = extract_feature("path_to_your_image.jpg")
-caption = beam_caption(model_v4, feat, word_to_idx, idx_to_word, max_len)
-print(caption)
+### 2. Running Inference (Test the Model)
+To generate a caption for any image, use the standalone `predict.py` script:
+```bash
+python predict.py path/to/your/image.jpg
 ```
+The script will load the spatial attention model from the `Models/` folder and print the generated caption to the terminal.
+
+### 3. Training
+To view or re-run the training process, open the notebook in the `Code/` directory:
+- **Code/CNN_LSTM_Final.ipynb**
+Ensure the dataset paths (Flickr8k) are correctly set for your environment (Kaggle/Local).
 
 ## Performance
 - **Final Loss:** 2.62
 - **BLEU-1:** 41.75%
-- **Speed:** ~60ms/step on Tesla P100.
+- **Architecture:** EfficientNetB0 + Spatial Attention + Vectorized LSTM
+
